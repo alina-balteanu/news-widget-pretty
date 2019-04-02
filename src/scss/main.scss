@@ -1,0 +1,244 @@
+$light-blue: #3cb5e0;
+$light-gray: #dcdcdc;
+
+@import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700i|Raleway:500,600,700,800");
+
+@mixin easeOut {
+  transition: all 0.3s ease-in-out;
+}
+
+@mixin border($color) {
+  border: 1.3px solid lighten($color, 32);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+button,
+input,
+i {
+  border: none;
+  text-decoration: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: "Merriweather Sans", sans-serif;
+  color: $light-gray;
+  letter-spacing: 0.8px;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Merriweather Sans", sans-serif;
+  letter-spacing: 0.3px;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+main {
+  padding: 2rem;
+}
+
+#news-box {
+  background: white;
+  max-width: 300px;
+  padding: 1rem;
+
+  .news-wrapper {
+    height: 625px;
+    position: relative;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+}
+
+.box-header {
+  background: $light-gray;
+  height: 2.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  p {
+    display: inline-block;
+    margin: 0;
+    margin-left: 0.5rem;
+    margin-right: auto;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .dot {
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.3rem;
+    transition: all 0.6s ease;
+  }
+}
+
+.tile {
+  padding-top: 2.2rem;
+  position: relative;
+  opacity: 0;
+  animation: 0.6s ease-in textAppear forwards;
+  @include easeOut();
+  cursor: pointer;
+  &:hover {
+    background: rgba($light-blue, 0.05);
+  }
+
+  .title {
+    font-weight: bold;
+    margin: 0 1.1rem;
+    @include easeOut();
+    cursor: pointer;
+
+    &:hover {
+      color: darken($light-blue, 25);
+      transform: scale(1.03) translateX(0.7%);
+    }
+  }
+  .details {
+    margin: 0 1.1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.35);
+  }
+}
+.tile:last-of-type {
+  padding-bottom: 2.7rem;
+  overflow: hidden;
+  & .details {
+    border-bottom: none;
+  }
+}
+.slides {
+  margin-bottom: 1rem;
+  animation: fade 0.5s ease;
+}
+
+.pageLines {
+  display: flex;
+  justify-content: center;
+}
+.pageLine {
+  display: inline-block;
+  height: 10px;
+  background: $light-blue;
+  flex: 1;
+  opacity: 0;
+  animation: pagelineFade 0.5s ease forwards;
+  margin: 0 0.05rem;
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    @include easeOut();
+    background: lighten(#3cb5e0, 20);
+  }
+}
+
+.pageLine:first-of-type {
+  margin-left: 0;
+}
+.pageLine:last-of-type {
+  margin-right: 0;
+}
+
+.fas {
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 999;
+  @include easeOut();
+
+  &:hover {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+  &:active {
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
+}
+.fa-long-arrow-alt-left {
+  left: 1rem;
+  color: darken($light-blue, 25);
+}
+.fa-long-arrow-alt-right {
+  right: 1rem;
+  color: darken($light-blue, 25);
+}
+
+.orange {
+  background: #ff0000a6;
+}
+
+.yellow {
+  background: #ffa500a6;
+}
+.green {
+  background: #008000a6;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes textAppear {
+  0% {
+    left: -2%;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes pagelineFade {
+  0% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@for $x from 1 through 10 {
+  .tile:nth-of-type(#{$x}) {
+    animation-delay: $x * 0.1s;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  main {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .fas {
+    bottom: unset;
+    top: 3.5rem;
+  }
+  .tile:first-of-type {
+    padding-top: 1.5rem;
+    margin-top: 2.1rem;
+  }
+  .tile:last-of-type {
+    padding-bottom: 1.3rem;
+  }
+}
